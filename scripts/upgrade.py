@@ -27,6 +27,7 @@ SUPPORTED_VERSIONS = [
     "v20.0",
     "v22.0",
     "v23.0",
+    "v23.1",
 ]
 
 UPDATES = {
@@ -300,6 +301,12 @@ BREAKING_CHANGES["v23.0"] = {
     "NetworkingContentDelivery": {"REMOVED": ["Private5G"]},
 }
 
+BREAKING_CHANGES["v23.1"] = {
+    "Analytics": {
+        "REPLACED": {"QuickSuite": "Quick"},
+    },
+}
+
 ICON_CHANGES = {}
 ICON_CHANGE_SET = set()
 
@@ -520,23 +527,21 @@ def process_file(output_file: str) -> List[str]:
     return overwrite_lines
 
 
-parser = argparse.ArgumentParser(
-    description="Upgrade AWS Icons for PlantUML references"
-)
-parser.add_argument(
-    "--overwrite",
-    action="store_true",
-    default=False,
-    help="Overwrite PlantUML file",
-)
-parser.add_argument(
-    "filename", help='The PlantUML filename or wildcard in quotes (e.g. "*.puml")'
-)
-
-args = vars(parser.parse_args())
-
-
 def main():
+    parser = argparse.ArgumentParser(
+        description="Upgrade AWS Icons for PlantUML references"
+    )
+    parser.add_argument(
+        "--overwrite",
+        action="store_true",
+        default=False,
+        help="Overwrite PlantUML file",
+    )
+    parser.add_argument(
+        "filename", help='The PlantUML filename or wildcard in quotes (e.g. "*.puml")'
+    )
+
+    args = vars(parser.parse_args())
     overwrite = False
     if args["overwrite"]:
         overwrite = True
